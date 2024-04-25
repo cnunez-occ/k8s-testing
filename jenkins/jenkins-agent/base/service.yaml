@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-agent-service
+spec:
+  selector:
+    app: jenkins-agent
+  ports:
+    - protocol: TCP
+      port: 50000
+      targetPort: 50000

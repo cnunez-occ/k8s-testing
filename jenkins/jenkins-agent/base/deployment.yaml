@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-agent
+  template:
+    metadata:
+      labels:
+        app: jenkins-agent
+    spec:
+      containers:
+        - name: jnlp
+          image: jenkins/inbound-agent:latest
+          imagePullPolicy: Always
+          command:
+            - "/usr/local/bin/jenkins-agent"
+          args:
+            - "-url"
+            - "http://192.168.49.2:32200/"
+            - "AGENT_NAME=jenkins-agent"
+            - "SECRET=fb369c8aadf80209694f89139e6d89fa9125ea4da6578c7b9dd283d84d852d11"
+            - "WORKSPACE_DIR=/home/jenkins/agent"
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
+          volumeMounts:
+            - name: workspace
+              mountPath: /home/jenkins/agent
+      volumes:
+        - name: workspace
+          emptyDir: {}
