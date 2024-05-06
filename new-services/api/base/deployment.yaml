@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  selector:
+    matchLabels:
+      app: api 
+  template:
+    metadata:
+      labels:
+        app: api 
+    spec:
+      containers:
+        - image: abalderasp/bootcamp-devops-project1-api
+          imagePullPolicy: Always
+          name: api
+          readinessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: /api/avatar
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          livenessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: /api/avatar
+              port: 5000
+            periodSeconds: 30
+          ports:
+            - containerPort: 5000
+              name: http

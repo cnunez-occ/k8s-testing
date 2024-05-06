@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  template:
+    metadata:
+      labels:
+        sidecar.istio.io/inject: "true"
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+        proxy.istio.io/config: |
+          holdApplicationUntilProxyStarts: true
