@@ -12,7 +12,7 @@ spec:
   project: default
   source:
     path: new-services/api/overlays/development
-    repoURL: https://github.com/devops-bootcamp-sre/bootcamp-devops-gitops.git
+    repoURL: https://github.com/cnunez-occ/k8s-testing.git
     targetRevision: main
   syncPolicy:
     automated:
